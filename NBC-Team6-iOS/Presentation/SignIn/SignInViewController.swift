@@ -28,7 +28,7 @@ class SignInViewController: UIViewController {
     }
     
     // MARK: - @objc
-    @objc func toSignupView(){
+    @objc func toSignUpView(){
         navigationController?.pushViewController(SignUpViewController(), animated: true)
     }
 
@@ -36,7 +36,7 @@ class SignInViewController: UIViewController {
     // configurations
     func configureUI() {
         configureIconImageView()
-        configureIntroLable()
+        configureIntroLabel()
         configureIdTextField()
         configureLoginButton()
         configureSignUpButton()
@@ -59,7 +59,7 @@ class SignInViewController: UIViewController {
     }
     
     // 인트로 레이블
-    func configureIntroLable() {
+    func configureIntroLabel() {
         view.addSubview(introLabel)
         introLabel.text = "안녕하세요!\nMOVIE66 입니다."
         introLabel.numberOfLines = 0
@@ -116,7 +116,7 @@ class SignInViewController: UIViewController {
     // 회원가입 버튼
     func configureSignUpButton() {
         view.addSubview(signupButton)
-        signupButton.addTarget(self, action: #selector(toSignupView), for: .touchUpInside)
+        signupButton.addTarget(self, action: #selector(toSignUpView), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             signupButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 10),
