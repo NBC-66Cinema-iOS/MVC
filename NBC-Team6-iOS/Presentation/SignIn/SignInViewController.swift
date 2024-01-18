@@ -19,12 +19,21 @@ class SignInViewController: UIViewController {
     let loginButton = CustomButton(fontColor: .white, backColor: .black, title: "로그인")
     let signupButton = CustomButton(fontColor: .black, backColor: .clear, title: "회원가입")
     
+    // UserDefaults
+        let memberUserDefaults = UserDefaults.standard
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
         configureUI()
+        
+        // 자동으로 로그인 정보 채우기
+        autoSignIn()
+        
+        // 로그인 버튼
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - @objc
@@ -32,6 +41,49 @@ class SignInViewController: UIViewController {
         navigationController?.pushViewController(SignUpViewController(), animated: true)
     }
 
+    // 로그인 버튼 눌렀을때 -> 아무것도 입력 안해도 로그인 버튼 누르면 다음 화면으로 넘어가버리는 것 수정해야함 ㄷㄷ
+    @objc private func loginButtonTapped() {
+        guard let enteredUserId = idTextField.text,
+              let enteredPassword = passwordTextField.text else {
+            print("Error: Text fields are empty")
+            return
+        }
+
+        guard let savedUserId = memberUserDefaults.string(forKey: "userId"),
+              let savedPassword = memberUserDefaults.string(forKey: "password") else {
+            print("Error: No saved credentials")
+            return
+        }
+
+        if enteredUserId == savedUserId && enteredPassword == savedPassword {
+            print("Login successful")
+    
+                let movieListVC = MovieListViewController()
+                
+            // MovieListViewController 푸쉬하기
+            //self.navigationController?.pushViewController(movieListVC, animated: true)
+            
+            //스택 비우고 영화리스트 화면으로 가기
+            navigationController?.setViewControllers([movieListVC], animated: true)
+            
+        } else {
+            // 로그인 정보 틀릴 경우에 alert 띄우기
+            let alert = UIAlertController(title: "로그인 실패", message: "로그인에 실패하였습니다", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    // MARK: - Custom Method
+    // 회원가입하고 나면 자동으로 로그인 정보 채우는 기능
+    func autoSignIn() {
+        if let savedUserId = memberUserDefaults.string(forKey: "userId"),
+           let savedPassword = memberUserDefaults.string(forKey: "password") {
+            idTextField.text = savedUserId
+            passwordTextField.text = savedPassword
+        }
+    }
+    
     // MARK: - Layout
     // configurations
     func configureUI() {
@@ -52,7 +104,7 @@ class SignInViewController: UIViewController {
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            iconImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 200),
+            iconImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 130),
             iconImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
             iconImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30)
         ])
@@ -106,10 +158,11 @@ class SignInViewController: UIViewController {
         view.addSubview(loginButton)
         
         NSLayoutConstraint.activate([
-            // loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10), -> view들이 같은 계층에 없다고 자꾸 에러남 ㅡㅡ
-            loginButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 420),
+            loginButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 350),
             loginButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
-            loginButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30)
+            loginButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
+            
+            //loginButton.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: -100)
         ])
     }
     

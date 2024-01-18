@@ -15,15 +15,60 @@ class SignUpViewController: UIViewController {
     let idTextField = UITextField()
     let passwordTextField = UITextField()
     let signupButton = CustomButton(fontColor: .white, backColor: .black, title: "회원가입")
-    
     // UserDefaults
-    //let memberUserDefaults = UserDefaults.standard
+    let memberUserDefaults = UserDefaults.standard
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
         configureUI()
+        
+        // 회원가입 버튼
+        signupButton.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
+    }
+    
+    // MARK: - @objc
+    // 회원가입 버튼 눌렀을 때 실행 -> 근데 아이디랑 비밀번호 입력 안해도 넘어가버리네??
+    @objc func signupButtonTapped() {
+        guard let userId = idTextField.text, let password = passwordTextField.text else {
+            // Print an error and return
+            print("Error: Text fields are empty")
+            return
+        }
+        
+        // id와 password를 UserDefaults에 저장
+        memberUserDefaults.set(userId, forKey: "userId")
+        memberUserDefaults.set(password, forKey: "password")
+ 
+        let signInVC = SignInViewController()
+            
+        // SignInViewController 푸쉬하기
+        //self.navigationController?.pushViewController(signInVC, animated: true)
+        
+        // 스택 비우고 로그인 화면으로 가기
+        navigationController?.setViewControllers([signInVC], animated: true)
+    }
+    
+    // MARK: - Custom Method
+    // 회원가입 버튼
+    func configureSignUpButton() {
+        view.addSubview(signupButton)
+        //signupButton.addTarget(self, action: #selector(toSignupView), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            signupButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 350),
+            signupButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            signupButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
+        ])
+    }
+    
+    // Userdefaults 관련
+    func saveCredentials(userId: String, password: String) {
+        let memberUserDefaults = UserDefaults.standard
+        memberUserDefaults.set(userId, forKey: "userId")
+        memberUserDefaults.set(password, forKey: "password")
     }
     
     // MARK: - Layout 
@@ -45,7 +90,7 @@ class SignUpViewController: UIViewController {
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            iconImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 200),
+            iconImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 130),
             iconImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
             iconImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30)
             //iconImageView.heightAnchor.constraint(equalToConstant: 100) -> image 넣을때 heightAnchor 설정해줘야 함
@@ -92,19 +137,6 @@ class SignUpViewController: UIViewController {
             passwordTextField.topAnchor.constraint(equalTo: idTextField.bottomAnchor, constant: 10),
             passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
-        ])
-    }
-    
-   
-    // 회원가입 버튼
-    func configureSignUpButton() {
-        view.addSubview(signupButton)
-        //signupButton.addTarget(self, action: #selector(toSignupView), for: .touchUpInside)
-        
-        NSLayoutConstraint.activate([
-            signupButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 420),
-            signupButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            signupButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
         ])
     }
 }
