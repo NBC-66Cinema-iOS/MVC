@@ -30,11 +30,13 @@ class SignUpViewController: UIViewController {
     }
     
     // MARK: - @objc
-    // 회원가입 버튼 눌렀을 때 실행 -> 근데 아이디랑 비밀번호 입력 안해도 넘어가버리네??
+    // 회원가입 버튼 눌렀을 때 실행
     @objc func signupButtonTapped() {
-        guard let userId = idTextField.text, let password = passwordTextField.text else {
-            // Print an error and return
-            print("Error: Text fields are empty")
+        guard let userId = idTextField.text, !userId.isEmpty, let password = passwordTextField.text, !password.isEmpty else {
+            // 회원가입시 정보 입력 안하면 alert
+            let alert = UIAlertController(title: "회원가입 실패", message: "아이디와 비밀번호를 입력해주세요", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             return
         }
         
@@ -45,10 +47,10 @@ class SignUpViewController: UIViewController {
         let signInVC = SignInViewController()
             
         // SignInViewController 푸쉬하기
-        //self.navigationController?.pushViewController(signInVC, animated: true)
+        self.navigationController?.pushViewController(signInVC, animated: true)
         
         // 스택 비우고 로그인 화면으로 가기
-        navigationController?.setViewControllers([signInVC], animated: true)
+        //navigationController?.setViewControllers([signInVC], animated: true)
     }
     
     // MARK: - Custom Method

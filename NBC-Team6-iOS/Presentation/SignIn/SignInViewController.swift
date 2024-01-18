@@ -20,7 +20,7 @@ class SignInViewController: UIViewController {
     let signupButton = CustomButton(fontColor: .black, backColor: .clear, title: "회원가입")
     
     // UserDefaults
-        let memberUserDefaults = UserDefaults.standard
+    let memberUserDefaults = UserDefaults.standard
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -41,11 +41,14 @@ class SignInViewController: UIViewController {
         navigationController?.pushViewController(SignUpViewController(), animated: true)
     }
 
-    // 로그인 버튼 눌렀을때 -> 아무것도 입력 안해도 로그인 버튼 누르면 다음 화면으로 넘어가버리는 것 수정해야함 ㄷㄷ
+    // 로그인 버튼 눌렀을때
     @objc private func loginButtonTapped() {
-        guard let enteredUserId = idTextField.text,
-              let enteredPassword = passwordTextField.text else {
-            print("Error: Text fields are empty")
+        guard let enteredUserId = idTextField.text, !enteredUserId.isEmpty,
+              let enteredPassword = passwordTextField.text, !enteredPassword.isEmpty else {
+                  // 로그인시 정보 입력 안하면 alert
+                  let alert = UIAlertController(title: "로그인 실패", message: "아이디와 비밀번호를 입력해주세요", preferredStyle: .alert)
+                  alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+                  self.present(alert, animated: true, completion: nil)
             return
         }
 
@@ -58,7 +61,7 @@ class SignInViewController: UIViewController {
         if enteredUserId == savedUserId && enteredPassword == savedPassword {
             print("Login successful")
     
-                let movieListVC = MovieListViewController()
+            let movieListVC = MovieListViewController()
                 
             // MovieListViewController 푸쉬하기
             //self.navigationController?.pushViewController(movieListVC, animated: true)
