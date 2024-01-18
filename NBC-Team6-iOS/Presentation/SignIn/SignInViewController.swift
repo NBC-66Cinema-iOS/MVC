@@ -18,7 +18,6 @@ class SignInViewController: UIViewController {
     // 버튼
     let loginButton = CustomButton(fontColor: .white, backColor: .black, title: "로그인")
     let signupButton = CustomButton(fontColor: .black, backColor: .clear, title: "회원가입")
-    
     // UserDefaults
     let memberUserDefaults = UserDefaults.standard
     
@@ -34,6 +33,8 @@ class SignInViewController: UIViewController {
         
         // 로그인 버튼
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        // 회원가입으로 이동하는 버튼
+        signupButton.addTarget(self, action: #selector(toSignUpView), for: .touchUpInside)
     }
     
     // MARK: - @objc
@@ -45,7 +46,7 @@ class SignInViewController: UIViewController {
     @objc private func loginButtonTapped() {
         guard let enteredUserId = idTextField.text, !enteredUserId.isEmpty,
               let enteredPassword = passwordTextField.text, !enteredPassword.isEmpty else {
-                  // 로그인시 정보 입력 안하면 alert
+                  // 아이디와 비밀번호 입력 안하면 alert
                   let alert = UIAlertController(title: "로그인 실패", message: "아이디와 비밀번호를 입력해주세요", preferredStyle: .alert)
                   alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
                   self.present(alert, animated: true, completion: nil)
@@ -54,12 +55,12 @@ class SignInViewController: UIViewController {
 
         guard let savedUserId = memberUserDefaults.string(forKey: "userId"),
               let savedPassword = memberUserDefaults.string(forKey: "password") else {
-            print("Error: No saved credentials")
+            //print("Error: No saved credentials")
             return
         }
-
+        
+        // 로그인 정보를 맞게 입력했을 경우 -> 다음 창을 보여준다
         if enteredUserId == savedUserId && enteredPassword == savedPassword {
-            print("Login successful")
     
             let movieListVC = MovieListViewController()
                 
@@ -70,15 +71,15 @@ class SignInViewController: UIViewController {
             navigationController?.setViewControllers([movieListVC], animated: true)
             
         } else {
-            // 로그인 정보 틀릴 경우에 alert 띄우기
-            let alert = UIAlertController(title: "로그인 실패", message: "로그인에 실패하였습니다", preferredStyle: .alert)
+            // 아이디와 비밀번호가 틀릴 경우에 alert 띄우기
+            let alert = UIAlertController(title: "로그인 오류", message: "아이디와 비밀번호를 확인해주세요", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
         }
     }
     
     // MARK: - Custom Method
-    // 회원가입하고 나면 자동으로 로그인 정보 채우는 기능
+    // 회원가입하고 나면 자동으로 로그인할때 아이디, 비밀번호 채우는 기능
     func autoSignIn() {
         if let savedUserId = memberUserDefaults.string(forKey: "userId"),
            let savedPassword = memberUserDefaults.string(forKey: "password") {
@@ -172,7 +173,6 @@ class SignInViewController: UIViewController {
     // 회원가입 버튼
     func configureSignUpButton() {
         view.addSubview(signupButton)
-        signupButton.addTarget(self, action: #selector(toSignUpView), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             signupButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 10),
@@ -181,4 +181,3 @@ class SignInViewController: UIViewController {
         ])
     }
 }
-
