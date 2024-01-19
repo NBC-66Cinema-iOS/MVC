@@ -18,8 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             let window = UIWindow(windowScene: windowScene)
             window.overrideUserInterfaceStyle = UIUserInterfaceStyle.light
-            
-            let rootVC = ViewController()
+       //루트뷰컨 해당 뷰컨으로 조정
+            let rootVC = ReservationViewController()
             let navigationController = UINavigationController(rootViewController: rootVC)
             
             window.rootViewController = navigationController
