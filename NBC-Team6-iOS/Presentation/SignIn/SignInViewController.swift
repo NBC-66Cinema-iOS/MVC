@@ -12,12 +12,12 @@ class SignInViewController: UIViewController {
     // MARK: - Property
     let introLabel = UILabel()
     let iconImageView = UIImageView()
-    // textfield
     let idTextField = UITextField()
     let passwordTextField = UITextField()
-    // 버튼
     let loginButton = CustomButton(fontColor: .white, backColor: .black, title: "로그인")
     let signupButton = CustomButton(fontColor: .black, backColor: .clear, title: "회원가입")
+    // UserDefaults
+    let memberUserDefaults = UserDefaults.standard
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -25,6 +25,15 @@ class SignInViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         configureUI()
+        
+        // 자동으로 로그인 정보 채우기
+        autoSignIn()
+        
+        // 로그인 버튼 addTarget
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        
+        // 회원가입으로 이동하는 버튼 addTarget
+        signupButton.addTarget(self, action: #selector(toSignUpView), for: .touchUpInside)
     }
     
     // MARK: - @objc
@@ -32,6 +41,52 @@ class SignInViewController: UIViewController {
         navigationController?.pushViewController(SignUpViewController(), animated: true)
     }
 
+    // 로그인 버튼 눌렀을때
+    @objc private func loginButtonTapped() {
+        guard let enteredUserId = idTextField.text, !enteredUserId.isEmpty,
+              let enteredPassword = passwordTextField.text, !enteredPassword.isEmpty else {
+                  // 아이디와 비밀번호 입력 안하면 alert
+                  let alert = UIAlertController(title: "로그인 실패", message: "아이디와 비밀번호를 입력해주세요", preferredStyle: .alert)
+                  alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+                  self.present(alert, animated: true, completion: nil)
+            return
+        }
+
+        guard let savedUserId = memberUserDefaults.string(forKey: "userId"),
+              let savedPassword = memberUserDefaults.string(forKey: "password") else {
+            //print("Error: No saved credentials")
+            return
+        }
+        
+        // 로그인 정보를 맞게 입력했을 경우 -> 다음 창을 보여준다
+        if enteredUserId == savedUserId && enteredPassword == savedPassword {
+    
+            let movieListVC = MovieListViewController()
+                
+            // MovieListViewController 푸쉬하기
+            //self.navigationController?.pushViewController(movieListVC, animated: true)
+            
+            //스택 비우고 영화리스트 화면으로 가기
+            navigationController?.setViewControllers([movieListVC], animated: true)
+            
+        } else {
+            // 아이디와 비밀번호가 틀릴 경우에 alert 띄우기
+            let alert = UIAlertController(title: "로그인 오류", message: "아이디와 비밀번호를 확인해주세요", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    // MARK: - Custom Method
+    // 회원가입하고 나면 자동으로 로그인할때 아이디, 비밀번호 채우는 기능
+    func autoSignIn() {
+        if let savedUserId = memberUserDefaults.string(forKey: "userId"),
+           let savedPassword = memberUserDefaults.string(forKey: "password") {
+            idTextField.text = savedUserId
+            passwordTextField.text = savedPassword
+        }
+    }
+    
     // MARK: - Layout
     // configurations
     func configureUI() {
@@ -52,7 +107,7 @@ class SignInViewController: UIViewController {
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            iconImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 200),
+            iconImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 130),
             iconImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
             iconImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30)
         ])
@@ -106,17 +161,17 @@ class SignInViewController: UIViewController {
         view.addSubview(loginButton)
         
         NSLayoutConstraint.activate([
-            // loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10), -> view들이 같은 계층에 없다고 자꾸 에러남 ㅡㅡ
-            loginButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 420),
+            loginButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 350),
             loginButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
-            loginButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30)
+            loginButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
+            
+            //loginButton.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: -100)
         ])
     }
     
     // 회원가입 버튼
     func configureSignUpButton() {
         view.addSubview(signupButton)
-        signupButton.addTarget(self, action: #selector(toSignUpView), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             signupButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 10),
@@ -125,4 +180,3 @@ class SignInViewController: UIViewController {
         ])
     }
 }
-
