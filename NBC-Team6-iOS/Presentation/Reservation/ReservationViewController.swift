@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ReservationViewController: UIViewController {
+final class ReservationViewController: UIViewController {
     
     let backButton = UINavigationItem()
     let centerReservationText = UITextView()
@@ -30,11 +30,11 @@ class ReservationViewController: UIViewController {
         configureUI()
     }
     
-    @objc func ReservationView(){
+    @objc func reservationView(){
         navigationController?.pushViewController(ReservationViewController(), animated: true)
     }
     
-    // configurations
+   
     
     func configureUI() {
         configureBackButton()
@@ -46,7 +46,7 @@ class ReservationViewController: UIViewController {
         configureTotalAmountlabel()
         configureMovieTitle()
         configureDate()
-        configureStepperCount()//stepperCount
+        configureStepperCount()
         configureNumberOfPersonstepper()
         configureTotalAmount()
         configureReservationButton()
@@ -54,7 +54,7 @@ class ReservationViewController: UIViewController {
     
     func configureBackButton() {
         backButton.title = "뒤로가기"
-        backButton.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(ReservationView))
+        backButton.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(reservationView))
         navigationItem.leftBarButtonItem = backButton.leftBarButtonItem
     }
     
@@ -220,6 +220,7 @@ class ReservationViewController: UIViewController {
             stepperCount.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
+    
     
     
     func configureNumberOfPersonstepper() {
