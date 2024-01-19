@@ -72,8 +72,6 @@ class MypageViewController: UIViewController {
         mypageIdLabel.text = "ID"
         mypageIdLabel.font = UIFont.boldSystemFont(ofSize: mypageIdLabel.font.pointSize)
         mypageIdLabel.textAlignment = .left
-        //mypageIdLabel.textColor = .black
-        
         mypageIdLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
