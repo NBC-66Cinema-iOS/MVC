@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CEE2F6F2B57D50200607D17 /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E46362B56535F00D2A473 /* ReservationViewController.swift */; };
 		371C6B362B54F6BD0054B0D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C6B352B54F6BD0054B0D9 /* AppDelegate.swift */; };
 		371C6B382B54F6BD0054B0D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C6B372B54F6BD0054B0D9 /* SceneDelegate.swift */; };
 		371C6B3A2B54F6BD0054B0D9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C6B392B54F6BD0054B0D9 /* ViewController.swift */; };
@@ -18,7 +19,6 @@
 		378E46282B56516B00D2A473 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E46272B56516B00D2A473 /* Network.swift */; };
 		378E46332B56532000D2A473 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E46322B56532000D2A473 /* TabBarController.swift */; };
 		378E46352B56534300D2A473 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E46342B56534300D2A473 /* MypageViewController.swift */; };
-		378E46372B56535F00D2A473 /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E46362B56535F00D2A473 /* ReservationViewController.swift */; };
 		378E46392B56536900D2A473 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E46382B56536900D2A473 /* MovieDetailViewController.swift */; };
 		378E463B2B56537000D2A473 /* MovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E463A2B56537000D2A473 /* MovieListViewController.swift */; };
 		378E463D2B56537800D2A473 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E463C2B56537800D2A473 /* SignInViewController.swift */; };
@@ -277,10 +277,10 @@
 			files = (
 				371C6B3A2B54F6BD0054B0D9 /* ViewController.swift in Sources */,
 				371C6B362B54F6BD0054B0D9 /* AppDelegate.swift in Sources */,
-				378E46372B56535F00D2A473 /* ReservationViewController.swift in Sources */,
 				378E46282B56516B00D2A473 /* Network.swift in Sources */,
 				378E463F2B56542A00D2A473 /* Utilities.swift in Sources */,
 				371C6B382B54F6BD0054B0D9 /* SceneDelegate.swift in Sources */,
+				2CEE2F6F2B57D50200607D17 /* ReservationViewController.swift in Sources */,
 				378E46332B56532000D2A473 /* TabBarController.swift in Sources */,
 				378E46392B56536900D2A473 /* MovieDetailViewController.swift in Sources */,
 				378E46412B56544A00D2A473 /* SignUpViewController.swift in Sources */,
@@ -443,6 +443,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -471,6 +472,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
