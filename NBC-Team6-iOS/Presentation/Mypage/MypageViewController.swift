@@ -16,7 +16,7 @@ class MypageViewController: UIViewController {
     let mypageIdText = UILabel()
     // 예매내역 타이틀 레이블
     let mypageReservationLabel = UILabel()
-    // 예매내역 보여주기 -> 다른 뷰에서 정보 가져오기?
+    // 예매내역 보여주기 -> ReservationViewController 에서 정보 가져오기
     
     // 로그아웃 버튼
     let mypageLogoutButton = CustomButton(fontColor: .white, backColor: .black, title: "로그아웃")
@@ -83,7 +83,6 @@ class MypageViewController: UIViewController {
     
     func configureMypageIdText() {
         view.addSubview(mypageIdText)
-        mypageIdText.text = ""
         mypageIdText.textColor = .gray
         mypageIdText.textAlignment = .left
         mypageIdText.translatesAutoresizingMaskIntoConstraints = false
