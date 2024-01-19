@@ -12,10 +12,8 @@ class SignInViewController: UIViewController {
     // MARK: - Property
     let introLabel = UILabel()
     let iconImageView = UIImageView()
-    // textfield
     let idTextField = UITextField()
     let passwordTextField = UITextField()
-    // 버튼
     let loginButton = CustomButton(fontColor: .white, backColor: .black, title: "로그인")
     let signupButton = CustomButton(fontColor: .black, backColor: .clear, title: "회원가입")
     // UserDefaults
@@ -31,9 +29,10 @@ class SignInViewController: UIViewController {
         // 자동으로 로그인 정보 채우기
         autoSignIn()
         
-        // 로그인 버튼
+        // 로그인 버튼 addTarget
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
-        // 회원가입으로 이동하는 버튼
+        
+        // 회원가입으로 이동하는 버튼 addTarget
         signupButton.addTarget(self, action: #selector(toSignUpView), for: .touchUpInside)
     }
     

@@ -25,7 +25,7 @@ class SignUpViewController: UIViewController {
         
         configureUI()
         
-        // 회원가입 버튼
+        // 회원가입 버튼 addTarget
         signupButton.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
     }
     
