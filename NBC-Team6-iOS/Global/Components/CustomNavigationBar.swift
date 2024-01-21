@@ -20,6 +20,8 @@ final class CustomNavigationBar: UIView {
     
     weak var delegate: CustomNavigationBarDelegate?
     
+    private var viewType: NavigatonBarType?
+    
     // MARK: - UI Properties
     
     private let stackView: UIStackView = {
@@ -71,10 +73,13 @@ final class CustomNavigationBar: UIView {
     
     // MARK: - Life Cycle
     
-    init(title: String?) {
+    init(viewType: NavigatonBarType, title: String?) {
         super.init(frame: CGRect.zero)
+        
+        self.viewType = viewType
         updateTitleView(with: title)
         setNavigationBarLayout()
+        updateMypageButton()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -116,10 +121,16 @@ extension CustomNavigationBar {
             stackView.topAnchor.constraint(equalTo: self.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
-            backButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/5),
-            myPageButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/5),
-            centerImageView.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/5),
+            backButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.2),
+            myPageButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.2),
+            centerImageView.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.2),
         ])
+    }
+    
+    private func updateMypageButton() {
+        if viewType == .withMypageButton {
+            myPageButton.tintColor = .clear
+        }
     }
     
     // MARK: - Action Helpers

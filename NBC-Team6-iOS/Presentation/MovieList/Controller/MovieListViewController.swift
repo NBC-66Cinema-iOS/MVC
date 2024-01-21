@@ -20,7 +20,7 @@ final class MovieListViewController: BaseViewController, CustomNavigationBarDele
     
     // MARK: - UI Properties
     
-    private let navigationBar = CustomNavigationBar(title: nil)
+    private let navigationBar = CustomNavigationBar(viewType: .standard, title: nil)
     
     private lazy var categoryTableView: UITableView = {
         let tableView = UITableView()

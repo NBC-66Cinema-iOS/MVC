@@ -41,7 +41,7 @@ class MypageViewController: UIViewController {
     let mypageReservationsText = UITextView()
     
 //    let navigationBar = UINavigationBar()
-    let navigationBar = CustomNavigationBar(title: "예매하기")
+    let navigationBar = CustomNavigationBar(viewType: .withMypageButton, title: "예매하기")
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
