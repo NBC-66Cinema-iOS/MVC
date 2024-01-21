@@ -30,6 +30,8 @@
 		378E463D2B56537800D2A473 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E463C2B56537800D2A473 /* SignInViewController.swift */; };
 		378E463F2B56542A00D2A473 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E463E2B56542A00D2A473 /* Utilities.swift */; };
 		378E46412B56544A00D2A473 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E46402B56544A00D2A473 /* SignUpViewController.swift */; };
+		379778672B5D045D00FFC61C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379778662B5D045D00FFC61C /* BaseViewController.swift */; };
+		37A3D6B22B5ACFFD0091E6E3 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A3D6B12B5ACFFD0091E6E3 /* CustomNavigationBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		378E463C2B56537800D2A473 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		378E463E2B56542A00D2A473 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		378E46402B56544A00D2A473 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		379778662B5D045D00FFC61C /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		37A3D6B12B5ACFFD0091E6E3 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,7 @@
 		378E46202B560F6E00D2A473 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				379778652B5D044400FFC61C /* Base */,
 				378E46302B56529B00D2A473 /* Components */,
 				378E46242B5610A200D2A473 /* Utilities */,
 				378E46232B560FB800D2A473 /* Support */,
@@ -258,8 +263,17 @@
 			children = (
 				2CEE2FCE2B5A206100607D17 /* ComponentFactory.swift */,
 				378E46252B56515900D2A473 /* CustomButton.swift */,
+				37A3D6B12B5ACFFD0091E6E3 /* CustomNavigationBar.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		379778652B5D044400FFC61C /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				379778662B5D045D00FFC61C /* BaseViewController.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -342,9 +356,11 @@
 				378E463F2B56542A00D2A473 /* Utilities.swift in Sources */,
 				371C6B382B54F6BD0054B0D9 /* SceneDelegate.swift in Sources */,
 				2CEE2FC52B5A1F4500607D17 /* MovieListCollectionViewCell.swift in Sources */,
+				37A3D6B22B5ACFFD0091E6E3 /* CustomNavigationBar.swift in Sources */,
 				2CEE2FC42B5A1F4500607D17 /* MovieListTableViewCell.swift in Sources */,
 				2CEE2F6F2B57D50200607D17 /* ReservationViewController.swift in Sources */,
 				378E46332B56532000D2A473 /* TabBarController.swift in Sources */,
+				379778672B5D045D00FFC61C /* BaseViewController.swift in Sources */,
 				378E46412B56544A00D2A473 /* SignUpViewController.swift in Sources */,
 				378E463D2B56537800D2A473 /* SignInViewController.swift in Sources */,
 				2CEE2FC02B5A1F1600607D17 /* MovieDetailViewController.swift in Sources */,
