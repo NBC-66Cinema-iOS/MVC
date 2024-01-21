@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - MovieListViewController
 
-final class MovieListViewController: BaseViewController {
+final class MovieListViewController: BaseViewController, CustomNavigationBarDelegate {
     
     // MARK: - Properties
     
@@ -40,9 +40,8 @@ final class MovieListViewController: BaseViewController {
 
         setLayout()
         setupSectionTitles()
-        for sectionTitle in sectionTitles {
-            updateMovieList(for: sectionTitle.title)
-        }
+        updateMovieLists()
+        setupNavigationBarDelegate()
     }
 }
 
@@ -70,7 +69,17 @@ extension MovieListViewController {
     
     // MARK: - Action Helpers
     
+    private func updateMovieLists() {
+        for sectionTitle in sectionTitles {
+            updateMovieList(for: sectionTitle.title)
+        }
+    }
+    
     // MARK: - General Helpers
+    
+    private func setupNavigationBarDelegate() {
+        navigationBar.delegate = self
+    }
     
     private func setupSectionTitles() {
         sectionTitles = [
@@ -127,6 +136,8 @@ extension MovieListViewController: UITableViewDataSource {
         return cell
     }
 }
+
+// MARK: - MovieListTableViewCellDelegate
 
 extension MovieListViewController: MovieListTableViewCellDelegate {
     func movieCellDidTap(movie: MovieModel) {

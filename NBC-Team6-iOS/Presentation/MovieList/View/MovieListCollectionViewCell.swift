@@ -63,4 +63,3 @@ extension MovieListCollectionViewCell {
         movieTitleLabel.text = model.title
     }
 }
-

@@ -9,7 +9,7 @@ import UIKit
 
 final class MovieDetailView: UIView {
     
-    private let navigationBar = CustomNavigationBar(title: nil)
+    let navigationBar = CustomNavigationBar(title: nil)
     
     let movieImageView = ComponentFactory.makeMoviePosterImageView()
     let titleLabel = ComponentFactory.makeBoldLabel()

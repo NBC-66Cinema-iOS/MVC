@@ -12,14 +12,21 @@ enum NavigatonBarType {
     case withMypageButton
 }
 
+// MARK: - CustomNavigationBar
+
 final class CustomNavigationBar: UIView {
+    
+    // MARK: - Properties
+    
+    weak var delegate: CustomNavigationBarDelegate?
+    
+    // MARK: - UI Properties
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
-//        stackView.spacing = stackView.frame.width * 1/5
         
         return stackView
     }()
@@ -62,6 +69,8 @@ final class CustomNavigationBar: UIView {
         return button
     }()
     
+    // MARK: - Life Cycle
+    
     init(title: String?) {
         super.init(frame: CGRect.zero)
         updateTitleView(with: title)
@@ -80,6 +89,8 @@ final class CustomNavigationBar: UIView {
     }
 }
 
+// MARK: - Extensions
+
 extension CustomNavigationBar {
     private func updateTitleView(with title: String?) {
         if let title = title {
@@ -97,7 +108,7 @@ extension CustomNavigationBar {
         
         addSubview(stackView)
 
-        [backButton, titleLabel.isHidden ? centerImageView : titleLabel, myPageButton].forEach { stackView.addArrangedSubview($0) }
+        [backButton, centerImageView, titleLabel, myPageButton].forEach { stackView.addArrangedSubview($0) }
         
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -115,10 +126,10 @@ extension CustomNavigationBar {
     
     // backButton과 myPageButton의 액션 메서드
     @objc private func backButtonTapped() {
-        // backButton을 눌렀을 때 수행할 동작
+        delegate?.didTapBackButton()
     }
     
     @objc private func myPageButtonTapped() {
-        // myPageButton을 눌렀을 때 수행할 동작
+        delegate?.didTapMypageButton()
     }
 }

@@ -36,6 +36,7 @@
 		379778702B5D234A00FFC61C /* MovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3797786F2B5D234A00FFC61C /* MovieResponse.swift */; };
 		379778732B5D5A8E00FFC61C /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379778722B5D5A8E00FFC61C /* UIImageView+Extension.swift */; };
 		379778752B5D60DC00FFC61C /* ImageCashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379778742B5D60DC00FFC61C /* ImageCashManager.swift */; };
+		379778772B5DAF9400FFC61C /* NavigationBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379778762B5DAF9400FFC61C /* NavigationBarDelegate.swift */; };
 		37A3D6B22B5ACFFD0091E6E3 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A3D6B12B5ACFFD0091E6E3 /* CustomNavigationBar.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		3797786F2B5D234A00FFC61C /* MovieResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponse.swift; sourceTree = "<group>"; };
 		379778722B5D5A8E00FFC61C /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		379778742B5D60DC00FFC61C /* ImageCashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCashManager.swift; sourceTree = "<group>"; };
+		379778762B5DAF9400FFC61C /* NavigationBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarDelegate.swift; sourceTree = "<group>"; };
 		37A3D6B12B5ACFFD0091E6E3 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -210,6 +212,7 @@
 			children = (
 				371C6B492B54FCF70054B0D9 /* newViewController.swift */,
 				379778742B5D60DC00FFC61C /* ImageCashManager.swift */,
+				379778762B5DAF9400FFC61C /* NavigationBarDelegate.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				2CEE2F6F2B57D50200607D17 /* ReservationViewController.swift in Sources */,
 				378E46332B56532000D2A473 /* TabBarController.swift in Sources */,
 				379778672B5D045D00FFC61C /* BaseViewController.swift in Sources */,
+				379778772B5DAF9400FFC61C /* NavigationBarDelegate.swift in Sources */,
 				378E46412B56544A00D2A473 /* SignUpViewController.swift in Sources */,
 				378E463D2B56537800D2A473 /* SignInViewController.swift in Sources */,
 				2CEE2FC02B5A1F1600607D17 /* MovieDetailViewController.swift in Sources */,

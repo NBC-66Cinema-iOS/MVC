@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MovieDetailViewController: BaseViewController {
+final class MovieDetailViewController: BaseViewController, CustomNavigationBarDelegate {
     
     var movie: MovieModel?
     
@@ -23,12 +23,17 @@ final class MovieDetailViewController: BaseViewController {
         super.viewDidLoad()
         
         fetchMovieDatas()
+        setDelegate()
     }
 }
 
 // MARK: - Network
 
 extension MovieDetailViewController {
+    private func setDelegate() {
+        rootView.navigationBar.delegate = self
+    }
+    
     private func fetchMovieDatas() {
         guard let movie = movie else { return }
         
