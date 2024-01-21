@@ -112,6 +112,11 @@ extension MovieListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieListTableViewCell.identifier, for: indexPath) as? MovieListTableViewCell else { return UITableViewCell() }
         
+        let category = sectionTitles[indexPath.section].title
+        if let moviesInSection = movies[category] {
+            cell.movieList = moviesInSection // MovieModel 객체들을 MovieListTableViewCell에 전달
+        }
+        
         return cell
     }
 }
@@ -138,9 +143,18 @@ extension MovieListViewController {
             case .success(let movies):
                 // 성공적으로 데이터를 받아왔을 때 해당 카테고리의 데이터 갱신
                 guard let self = self else { return }
-                let movieList = movies
+                self.movies[category] = movies
                 DispatchQueue.main.async {
-                    self.categoryTableView.reloadData()
+                    // 해당 카테고리에 대한 섹션 인덱스를 찾음
+                    if let sectionIndex = self.sectionTitles.firstIndex(where: { $0.title == category }) {
+                        // 해당 섹션에 대한 IndexPath를 생성
+                        let indexPath = IndexPath(row: 0, section: sectionIndex)
+                        
+                        // 특정 IndexPath에 대한 셀을 가져와 데이터를 설정
+                        if let cell = self.categoryTableView.cellForRow(at: indexPath) as? MovieListTableViewCell {
+                            cell.movieList = movies
+                        }
+                    }
                 }
             case .failure(let error):
                 // 에러 처리

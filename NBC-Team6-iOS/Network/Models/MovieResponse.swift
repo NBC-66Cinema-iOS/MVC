@@ -8,12 +8,5 @@
 import Foundation
 
 struct MovieResponse: Codable {
-//    let dates: Dates
-//    let page: Int
     let results: [MovieModel]
-}
-
-struct Dates: Codable {
-    let maximum: String
-    let minimum: String
 }
