@@ -19,7 +19,7 @@ final class CustomNavigationBar: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
-        stackView.spacing = stackView.frame.width * 1/5
+//        stackView.spacing = stackView.frame.width * 1/5
         
         return stackView
     }()
@@ -68,13 +68,15 @@ final class CustomNavigationBar: UIView {
         setNavigationBarLayout()
     }
     
-    // TODO: 트러블 슈팅
-    override func didMoveToSuperview() {
-        setNavigationBarConstraint()
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
+        stackView.spacing = self.frame.width * 0.2
     }
 }
 
@@ -90,15 +92,6 @@ extension CustomNavigationBar {
         }
     }
     
-    private func setNavigationBarConstraint() {
-        NSLayoutConstraint.activate([
-            topAnchor.constraint(equalTo: superview?.safeAreaLayoutGuide.topAnchor ?? NSLayoutYAxisAnchor()),
-            leadingAnchor.constraint(equalTo: superview?.safeAreaLayoutGuide.leadingAnchor ?? NSLayoutXAxisAnchor()),
-            trailingAnchor.constraint(equalTo: superview?.safeAreaLayoutGuide.trailingAnchor ?? NSLayoutXAxisAnchor()),
-            heightAnchor.constraint(equalTo: superview?.heightAnchor ?? NSLayoutDimension(), multiplier: 0.1)
-        ])
-    }
-    
     private func setNavigationBarLayout() {
         self.translatesAutoresizingMaskIntoConstraints = false
         
@@ -107,7 +100,6 @@ extension CustomNavigationBar {
         [backButton, titleLabel.isHidden ? centerImageView : titleLabel, myPageButton].forEach { stackView.addArrangedSubview($0) }
         
         NSLayoutConstraint.activate([
-            
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             stackView.topAnchor.constraint(equalTo: self.topAnchor),
