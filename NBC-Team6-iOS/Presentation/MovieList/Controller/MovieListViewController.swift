@@ -20,6 +20,8 @@ final class MovieListViewController: UIViewController {
     
     // MARK: - UI Properties
     
+    private let navigationBar = CustomNavigationBar(title: nil)
+    
     private lazy var categoryTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,10 +53,10 @@ extension MovieListViewController {
     // MARK: - Layout Helpers
     
     private func setLayout() {
-        view.addSubview(categoryTableView)
+        [navigationBar, categoryTableView].forEach { view.addSubview($0) }
         
         NSLayoutConstraint.activate([
-            categoryTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            categoryTableView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
             categoryTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             categoryTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             categoryTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)

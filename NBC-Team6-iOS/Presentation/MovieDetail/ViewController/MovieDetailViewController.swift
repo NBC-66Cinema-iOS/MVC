@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MovieDetailViewController: UIViewController {
+final class MovieDetailViewController: BaseViewController {
     
     private let rootView = MovieDetailView()
     
@@ -17,13 +17,18 @@ final class MovieDetailViewController: UIViewController {
         view = rootView
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
     }
 }
 
 extension MovieDetailViewController {
-    
+
 }
