@@ -33,11 +33,12 @@ class SignInViewController: UIViewController {
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         
         // 회원가입으로 이동하는 버튼 addTarget
-        signupButton.addTarget(self, action: #selector(toSignUpView), for: .touchUpInside)
+        signupButton.addTarget(self, action: #selector(moveToSignUpView), for: .touchUpInside)
     }
     
     // MARK: - @objc
-    @objc func toSignUpView(){
+    // 회원가입뷰로 이동하는 펑션
+    @objc func moveToSignUpView(){
         navigationController?.pushViewController(SignUpViewController(), animated: true)
     }
 
@@ -54,7 +55,6 @@ class SignInViewController: UIViewController {
 
         guard let savedUserId = memberUserDefaults.string(forKey: "userId"),
               let savedPassword = memberUserDefaults.string(forKey: "password") else {
-            //print("Error: No saved credentials")
             return
         }
         
@@ -164,7 +164,6 @@ class SignInViewController: UIViewController {
             loginButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 350),
             loginButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
             loginButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
-            
             //loginButton.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: -100)
         ])
     }
