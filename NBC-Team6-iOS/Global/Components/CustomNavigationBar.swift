@@ -16,9 +16,10 @@ final class CustomNavigationBar: UIView {
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        stackView.spacing = stackView.frame.width * 1/5
         
         return stackView
     }()
@@ -29,7 +30,6 @@ final class CustomNavigationBar: UIView {
         button.tintColor = .black
         button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-//        button.backgroundColor = .red
         
         return button
     }()
@@ -37,11 +37,8 @@ final class CustomNavigationBar: UIView {
     private let centerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "centerImage")
-        imageView.contentMode = .scaleAspectFit
-        imageView.contentMode = .center
-        imageView.backgroundColor = .brown
-        imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 50) // x, y 좌표와 너비, 높이 설정
-
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         
         return imageView
     }()
@@ -61,7 +58,6 @@ final class CustomNavigationBar: UIView {
         button.tintColor = .black
         button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(myPageButtonTapped), for: .touchUpInside)
-//        button.backgroundColor = .blue
         
         return button
     }()
@@ -116,6 +112,10 @@ extension CustomNavigationBar {
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             stackView.topAnchor.constraint(equalTo: self.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            
+            backButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/5),
+            myPageButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/5),
+            centerImageView.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/5),
         ])
     }
     
