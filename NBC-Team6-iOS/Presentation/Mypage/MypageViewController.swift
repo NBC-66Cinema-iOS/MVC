@@ -15,6 +15,16 @@ struct Reservation {
     let totalAmount: Int
 }
 
+extension UIImage {
+    func resizedImage(newSize: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+        self.draw(in: CGRect(origin: .zero, size: newSize))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+}
+
 class MypageViewController: UIViewController {
     // MARK: - Property
     // ID 레이블
@@ -30,6 +40,8 @@ class MypageViewController: UIViewController {
     // 예매내역 텍스트
     let mypageReservationsText = UITextView()
     
+    let navigationBar = UINavigationBar()
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,14 +55,66 @@ class MypageViewController: UIViewController {
         // 로그아웃 버튼 addTarget
         mypageLogoutButton.addTarget(self, action: #selector(mypageLogoutButtonTapped), for: .touchUpInside)
         
-        // navigation bar 넣기
-        let customNavigationBar = CustomNavigationBar(title: "MY PAGE")
-        view.addSubview(customNavigationBar)
+        configureNavigationBar()
+    }
+
+    // navigationBar 설정
+    func configureNavigationBar() {
+        view.addSubview(navigationBar)
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
         
+        // Make the navigation bar transparent
+        navigationBar.isTranslucent = true
+        navigationBar.backgroundColor = UIColor.clear
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationBar.shadowImage = UIImage()
         
+        let navigationItem = UINavigationItem()
+
+        // 백버튼에 이미지 넣기
+        if let backButtonImage = UIImage(named: "backButtonImage") {
+            let targetSize = CGSize(width: 70, height: 70)
+
+            let widthRatio  = targetSize.width  / backButtonImage.size.width
+            let heightRatio = targetSize.height / backButtonImage.size.height
+
+            var newSize: CGSize
+            if(widthRatio > heightRatio) {
+                newSize = CGSize(width: backButtonImage.size.width * heightRatio, height: backButtonImage.size.height * heightRatio)
+            } else {
+                newSize = CGSize(width: backButtonImage.size.width * widthRatio,  height: backButtonImage.size.height * widthRatio)
+            }
+
+            let resizedBackButtonImage = backButtonImage.resizedImage(newSize: newSize)
+            let backButton = UIBarButtonItem(image: resizedBackButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
+            navigationItem.leftBarButtonItem = backButton
+        }
+
+        // 타이틀 레이블
+        let titleLabel = UILabel()
+        titleLabel.text = "MY PAGE"
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        navigationItem.titleView = titleLabel
+
+        navigationBar.items = [navigationItem]
+
+        // 레이아웃
+        NSLayoutConstraint.activate([
+            navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            navigationBar.heightAnchor.constraint(equalToConstant: 44)
+        ])
     }
 
     // MARK: - @objc
+    // 네비게이션바에서 뒤로가기 버튼 눌렀을때
+    @objc func backButtonTapped() {
+        let reservationVC = ReservationViewController()
+        self.navigationController?.pushViewController(reservationVC, animated: true)
+    }
+    
     // 로그아웃 버튼 눌렀을때 로그인 화면으로 가기 + 아이디랑 비밀번호 채워진것 없어지게 하기
     @objc func mypageLogoutButtonTapped() {
         memberUserDefaults.removeObject(forKey: "userId")
@@ -69,7 +133,7 @@ class MypageViewController: UIViewController {
             mypageReservationsText.topAnchor.constraint(equalTo: mypageReservationLabel.bottomAnchor, constant: 8),
             mypageReservationsText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
             mypageReservationsText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            //mypageReservationsText.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10)
+            //mypageReservationsText.bottomAnchor.constraint(equalTo: mypageLogoutButton.topAnchor, constant: -50)
         ])
         
         // textview 설정 - 텍스트, 폰트, 색상
@@ -103,8 +167,6 @@ class MypageViewController: UIViewController {
         configureReservations()
     }
 
-    
-    
     func configureMypageIdLabel() {
         view.addSubview(mypageIdLabel)
         mypageIdLabel.text = "ID"
@@ -113,7 +175,7 @@ class MypageViewController: UIViewController {
         mypageIdLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            mypageIdLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 110),
+            mypageIdLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
             mypageIdLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
             mypageIdLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30)
         ])
