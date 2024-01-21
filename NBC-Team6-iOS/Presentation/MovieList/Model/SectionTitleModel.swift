@@ -6,5 +6,5 @@
 //
 
 struct SectionTitleModel {
-    let title: String
+    var title: String
 }

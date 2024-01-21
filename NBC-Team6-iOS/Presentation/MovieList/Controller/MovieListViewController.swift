@@ -14,6 +14,9 @@ final class MovieListViewController: UIViewController {
     // MARK: - Properties
     
     private var sectionTitles: [SectionTitleModel] = []
+    private var movies: [String: [MovieModel]] = [:]
+    
+    private let tmdbClient = TMDBClient()
     
     // MARK: - UI Properties
     
@@ -37,6 +40,9 @@ final class MovieListViewController: UIViewController {
 
         setLayout()
         setupSectionTitles()
+        for sectionTitle in sectionTitles {
+            updateMovieList(for: sectionTitle.title)
+        }
     }
 }
 
@@ -107,5 +113,39 @@ extension MovieListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieListTableViewCell.identifier, for: indexPath) as? MovieListTableViewCell else { return UITableViewCell() }
         
         return cell
+    }
+}
+
+// MARK: - Network
+
+extension MovieListViewController {
+    private func fetchMovies(for category: String, completion: @escaping (Result<[MovieModel], Error>) -> Void) {
+        switch category {
+        case "Upcoming":
+            tmdbClient.fetchUpcomingMovies(completion: completion)
+        case "NowPlaying":
+            tmdbClient.fetchNowPlayingMovies(completion: completion)
+        case "Popular":
+            tmdbClient.fetchPopularMovies(completion: completion)
+        default:
+            break
+        }
+    }
+
+    private func updateMovieList(for category: String) {
+        fetchMovies(for: category) { [weak self] result in
+            switch result {
+            case .success(let movies):
+                // 성공적으로 데이터를 받아왔을 때 해당 카테고리의 데이터 갱신
+                guard let self = self else { return }
+                let movieList = movies
+                DispatchQueue.main.async {
+                    self.categoryTableView.reloadData()
+                }
+            case .failure(let error):
+                // 에러 처리
+                print("Error fetching movies: \(error.localizedDescription)")
+            }
+        }
     }
 }

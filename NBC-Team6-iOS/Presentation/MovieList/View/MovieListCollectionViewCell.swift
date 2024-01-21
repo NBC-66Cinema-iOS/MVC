@@ -51,7 +51,7 @@ extension MovieListCollectionViewCell {
     
     // MARK: - General Helpers
     
-    func dataBind(with model: MovieListModel) {
+    func dataBind(with model: MovieListLocalModel) {
         movieImageView.image = model.image
         movieTitleLabel.text = model.title
     }
