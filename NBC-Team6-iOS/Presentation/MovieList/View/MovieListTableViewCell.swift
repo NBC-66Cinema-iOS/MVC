@@ -15,8 +15,11 @@ final class MovieListTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
-//    let movieList: [MovieListModel] = []
-    let movieList: [MovieModel] = []
+    var movieList: [MovieModel] = [] {
+        didSet {
+            movieListCollectionView.reloadData()
+        }
+    }
     
     // MARK: - UI Properties
     
@@ -65,6 +68,8 @@ extension MovieListTableViewCell {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
+
 extension MovieListTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let screenWidth = UIScreen.main.bounds.width
@@ -77,15 +82,19 @@ extension MovieListTableViewCell: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - UICollectionViewDataSource
+
 extension MovieListTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return movieList.count
-        return 10
+        return movieList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieListCollectionViewCell.identifier, for: indexPath) as? MovieListCollectionViewCell else { return UICollectionViewCell() }
         
+        let movie = movieList[indexPath.item]
+        cell.dataBind(with: movie) // MovieModel 객체를 MovieListCollectionViewCell에 전달
+        
         return cell
-    }  
+    }
 }

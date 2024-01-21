@@ -43,6 +43,7 @@ extension MovieListCollectionViewCell {
             movieImageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
             
             movieTitleLabel.leadingAnchor.constraint(equalTo: movieImageView.leadingAnchor),
+            movieTitleLabel.trailingAnchor.constraint(equalTo: movieImageView.trailingAnchor),
             movieTitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: movieImageView.bottomAnchor, multiplier: 0.5)
         ])
     }
@@ -51,8 +52,10 @@ extension MovieListCollectionViewCell {
     
     // MARK: - General Helpers
     
-    func dataBind(with model: MovieListLocalModel) {
-        movieImageView.image = model.image
+    func dataBind(with model: MovieModel) {
+        let baseURL = "https://image.tmdb.org/t/p/w500"
+        let absolutePath = baseURL + (model.imagePath ?? "")
+        movieImageView.load(from: absolutePath) // 절대 경로를 사용하여 이미지 로드
         movieTitleLabel.text = model.title
     }
 }
