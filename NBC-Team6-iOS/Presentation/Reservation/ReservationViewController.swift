@@ -8,7 +8,9 @@
 import UIKit
 
 final class ReservationViewController: UIViewController {
-    
+    // 마이페이지와 연동되는 부분
+    static var reservations: [Reservation] = []
+
     let backButton = UINavigationItem()
     let centerReservationText = UITextView()
     let myPageButton = UIButton()
@@ -26,15 +28,28 @@ final class ReservationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        navigationItem.title = "예매하기"
+        
         
         configureUI()
     }
-    
+    //moveToReservationView 로 교체
     @objc func reservationView(){
         navigationController?.pushViewController(ReservationViewController(), animated: true)
     }
     
+
    
+    // 마이페이지와 연동되는 부분
+    
+    func addReservation() {
+        let reservation = Reservation(movieTitle: movieTitle.text ?? "", date: date.date, numberOfPeople: Int(stepperCount.text ?? "0") ?? 0, totalAmount: Int(totalAmount.text ?? "0") ?? 0)
+        ReservationViewController.reservations.append(reservation)
+    }
+    //----------
+    
+
+    
     
     func configureUI() {
         configureBackButton()
@@ -51,15 +66,18 @@ final class ReservationViewController: UIViewController {
         configureTotalAmount()
         configureReservationButton()
     }
-    
     func configureBackButton() {
-        backButton.title = "뒤로가기"
-        backButton.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(reservationView))
+        backButton.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTapped))
         navigationItem.leftBarButtonItem = backButton.leftBarButtonItem
     }
     
+    @objc func backButtonTapped() {
+        let movieDetailViewController = MovieDetailViewController()
+        navigationController?.pushViewController(movieDetailViewController, animated: true)
+    }
+    
     func configureCenterReservationText() {
-        centerReservationText.text = "예매하기"
+        centerReservationText.text = nil
         centerReservationText.textAlignment = .center
         centerReservationText.font = UIFont.boldSystemFont(ofSize: 20)
         centerReservationText.textColor = .black
@@ -67,25 +85,28 @@ final class ReservationViewController: UIViewController {
         view.addSubview(centerReservationText)
         centerReservationText.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            centerReservationText.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            centerReservationText.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant: 10),
             centerReservationText.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             centerReservationText.widthAnchor.constraint(equalToConstant: 100),
             centerReservationText.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
+    //
     
     func configureMyPageButton() {
         myPageButton.setTitle("MY", for: .normal)
         myPageButton.setTitleColor(.black, for: .normal)
         myPageButton.backgroundColor = .systemBackground
-        view.addSubview(myPageButton)
-        myPageButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            myPageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            myPageButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            myPageButton.widthAnchor.constraint(equalToConstant: 100),
-            myPageButton.heightAnchor.constraint(equalToConstant: 30)
-        ])
+        
+        let myPageBarButton = UIBarButtonItem(customView: myPageButton)
+        navigationItem.rightBarButtonItem = myPageBarButton
+        
+        myPageButton.addTarget(self, action: #selector(myPageButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func myPageButtonTapped() {
+        let myPageViewController = MypageViewController()
+        navigationController?.pushViewController(myPageViewController, animated: true)
     }
     
     func configureMovieTitleLabel() {
@@ -153,11 +174,12 @@ final class ReservationViewController: UIViewController {
     }
     
     func configureMovieTitle() {
-        movieTitle.text = "영화제목"
+        movieTitle.text = "영화이름"
         movieTitle.textAlignment = .right
         movieTitle.font = UIFont.boldSystemFont(ofSize: 20)
         movieTitle.textColor = .black
         movieTitle.backgroundColor = .systemBackground
+        movieTitle.adjustsFontSizeToFitWidth = true
         view.addSubview(movieTitle)
         movieTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -188,7 +210,7 @@ final class ReservationViewController: UIViewController {
             ])
         }
     }
-    
+    //함께 변경됨
     func configureNumberOfPersonLabel() {
         numberOfPersonLabel.text = "인원"
         numberOfPersonLabel.textAlignment = .left
@@ -204,8 +226,8 @@ final class ReservationViewController: UIViewController {
             numberOfPersonLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
-    // 스테퍼와 카운트숫자 연동할 차례임!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    func configureStepperCount () {
+    
+    func configureStepperCount() {
         stepperCount.text = "1"
         stepperCount.textAlignment = .center
         stepperCount.font = UIFont.boldSystemFont(ofSize: 25)
@@ -215,18 +237,17 @@ final class ReservationViewController: UIViewController {
         stepperCount.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stepperCount.topAnchor.constraint(equalTo: numberOfPersonLabel.topAnchor),
-            stepperCount.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            stepperCount.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -80),
             stepperCount.widthAnchor.constraint(equalToConstant: 100),
             stepperCount.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
     
-    
-    
     func configureNumberOfPersonstepper() {
         numberOfPersonstepper.minimumValue = 1
         numberOfPersonstepper.maximumValue = 10
         numberOfPersonstepper.stepValue = 1
+        numberOfPersonstepper.addTarget(self, action: #selector(numberOfPersonstepperValueChanged(_:)), for: .valueChanged)
         view.addSubview(numberOfPersonstepper)
         numberOfPersonstepper.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -237,9 +258,8 @@ final class ReservationViewController: UIViewController {
         ])
     }
     
-    func numberOfPersonstepperValueChanged(_ sender: UIStepper) {
-        numberOfPersonLabel.text = "\(Int(sender.value))"
-        
+    @objc func numberOfPersonstepperValueChanged(_ sender: UIStepper) {
+        stepperCount.text = "\(Int(sender.value))"
         totalAmount.text = "\(Int(sender.value) * 16000)원"
     }
     
@@ -249,6 +269,7 @@ final class ReservationViewController: UIViewController {
         totalAmount.font = UIFont.boldSystemFont(ofSize: 25)
         totalAmount.textColor = .black
         totalAmount.backgroundColor = .systemBackground
+        totalAmount.adjustsFontSizeToFitWidth = true
         view.addSubview(totalAmount)
         totalAmount.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -272,7 +293,19 @@ final class ReservationViewController: UIViewController {
         ])
     }
     
-    @objc func reservationButtonTapped(_ sender: UIButton) {
+    @objc func reservationButtonTapped() {
+        let alertController = UIAlertController(title: nil, message: "예매가 완료되었습니다.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+            let movieListViewController = MovieListViewController()
+            movieListViewController.modalPresentationStyle = .fullScreen
+            self.present(movieListViewController, animated: true, completion: nil)
+        }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
+
+//    @objc func reservationButtonTapped(_ sender: UIButton) {
+//    }
     
+
 }
