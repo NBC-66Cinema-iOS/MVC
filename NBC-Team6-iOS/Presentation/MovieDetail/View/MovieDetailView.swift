@@ -9,9 +9,12 @@ import UIKit
 
 class MovieDetailView: UIView {
     
+    private let navigationBar = CustomNavigationBar(title: "상세보기")
+    
     private let movieImageView = ComponentFactory.makeMoviePosterImageView()
     private let titleLabel = ComponentFactory.makeMediumLabel()
     private let descriptionLabel = ComponentFactory.makeMediumLabel()
+    
     private lazy var reservationButton = CustomButton(fontColor: .white, backColor: .black, title: "예약하기")
 
     override init(frame: CGRect) {
@@ -27,10 +30,10 @@ class MovieDetailView: UIView {
 
 extension MovieDetailView {
     private func setLayout() {
-        [movieImageView, titleLabel, descriptionLabel, reservationButton].forEach { addSubview($0) }
+        [navigationBar, movieImageView, titleLabel, descriptionLabel, reservationButton].forEach { addSubview($0) }
         
         NSLayoutConstraint.activate([
-            movieImageView.topAnchor.constraint(equalToSystemSpacingBelow: self.safeAreaLayoutGuide.topAnchor, multiplier: 0.1),
+            movieImageView.topAnchor.constraint(equalToSystemSpacingBelow: self.safeAreaLayoutGuide.topAnchor, multiplier: 15),
             // 왜 snapkit
             movieImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
 //            movieImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.frame.size.width * 0.3),
