@@ -45,9 +45,15 @@ struct ComponentFactory {
         return label
     }
     
-    static func makeScrollView() -> UIScrollView {
-        let scrollView = UIScrollView()
+    static func makeDescriptionLabel() -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 18, weight: .medium)
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        label.text = "makeDescriptionLabel"
         
-        return scrollView
+        return label
     }
+    
 }

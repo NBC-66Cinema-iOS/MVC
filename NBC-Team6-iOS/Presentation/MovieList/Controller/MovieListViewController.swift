@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - MovieListViewController
 
-final class MovieListViewController: UIViewController {
+final class MovieListViewController: BaseViewController {
     
     // MARK: - Properties
     
@@ -56,6 +56,11 @@ extension MovieListViewController {
         [navigationBar, categoryTableView].forEach { view.addSubview($0) }
         
         NSLayoutConstraint.activate([
+            navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            navigationBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1),
+            
             categoryTableView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
             categoryTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             categoryTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -78,9 +83,7 @@ extension MovieListViewController {
 
 // MARK: - UITableViewDelegate
 
-extension MovieListViewController: UITableViewDelegate {
-
-}
+extension MovieListViewController: UITableViewDelegate { }
 
 // MARK: - UITableViewDataSource
 
@@ -113,11 +116,23 @@ extension MovieListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieListTableViewCell.identifier, for: indexPath) as? MovieListTableViewCell else { return UITableViewCell() }
         
         let category = sectionTitles[indexPath.section].title
+        
         if let moviesInSection = movies[category] {
-            cell.movieList = moviesInSection // MovieModel 객체들을 MovieListTableViewCell에 전달
+            // MovieModel 객체들을 MovieListTableViewCell에 전달
+            cell.movieList = moviesInSection
         }
         
+        cell.delegate = self
+        
         return cell
+    }
+}
+
+extension MovieListViewController: MovieListTableViewCellDelegate {
+    func movieCellDidTap(movie: MovieModel) {
+        let detailVC = MovieDetailViewController()
+        detailVC.movie = movie
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 

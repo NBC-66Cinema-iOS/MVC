@@ -11,10 +11,16 @@ import UIKit
 
 final class MovieListCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - Properties
+    
     static let identifier = "MovieListCollectionViewCell"
+    
+    // MARK: - UI Properties
     
     private lazy var movieImageView = ComponentFactory.makeMoviePosterImageView()
     private lazy var movieTitleLabel = ComponentFactory.makeMovieTitleLabel()
+    
+    // MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,9 +59,7 @@ extension MovieListCollectionViewCell {
     // MARK: - General Helpers
     
     func dataBind(with model: MovieModel) {
-        let baseURL = "https://image.tmdb.org/t/p/w500"
-        let absolutePath = baseURL + (model.imagePath ?? "")
-        movieImageView.load(from: absolutePath) // 절대 경로를 사용하여 이미지 로드
+        movieImageView.load(from: model.absoluteImagePath)
         movieTitleLabel.text = model.title
     }
 }

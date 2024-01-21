@@ -7,13 +7,19 @@
 
 import UIKit
 
+protocol MovieListTableViewCellDelegate: AnyObject {
+    func movieCellDidTap(movie: MovieModel)
+}
+
 // MARK: - MovieListTableViewCell
 
 final class MovieListTableViewCell: UITableViewCell {
     
+    // MARK: - Properties
+    
     static let identifier = "MovieListTableViewCell"
     
-    // MARK: - Properties
+    weak var delegate: MovieListTableViewCellDelegate?
     
     var movieList: [MovieModel] = [] {
         didSet {
@@ -93,8 +99,13 @@ extension MovieListTableViewCell: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieListCollectionViewCell.identifier, for: indexPath) as? MovieListCollectionViewCell else { return UICollectionViewCell() }
         
         let movie = movieList[indexPath.item]
-        cell.dataBind(with: movie) // MovieModel 객체를 MovieListCollectionViewCell에 전달
+        cell.dataBind(with: movie)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedMovie = movieList[indexPath.row]
+        delegate?.movieCellDidTap(movie: selectedMovie)
     }
 }

@@ -9,6 +9,8 @@ import UIKit
 
 final class MovieDetailViewController: BaseViewController {
     
+    var movie: MovieModel?
+    
     private let rootView = MovieDetailView()
     
     override func loadView() {
@@ -17,18 +19,21 @@ final class MovieDetailViewController: BaseViewController {
         view = rootView
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        fetchMovieDatas()
     }
 }
 
-extension MovieDetailViewController {
+// MARK: - Network
 
+extension MovieDetailViewController {
+    private func fetchMovieDatas() {
+        guard let movie = movie else { return }
+        
+        rootView.movieImageView.load(from: movie.absoluteImagePath)
+        rootView.titleLabel.text = movie.title
+        rootView.descriptionLabel.text = movie.overview
+    }
 }
