@@ -26,8 +26,10 @@ final class CustomNavigationBar: UIView {
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "backButtonImage"), for: .normal)
+        button.tintColor = .black
+        button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        button.backgroundColor = .red
+//        button.backgroundColor = .red
         
         return button
     }()
@@ -35,9 +37,10 @@ final class CustomNavigationBar: UIView {
     private let centerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "centerImage")
+        imageView.contentMode = .scaleAspectFit
         imageView.contentMode = .center
         imageView.backgroundColor = .brown
-        imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100) // x, y 좌표와 너비, 높이 설정
+        imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 50) // x, y 좌표와 너비, 높이 설정
 
         
         return imageView
@@ -54,9 +57,11 @@ final class CustomNavigationBar: UIView {
     
     private lazy var myPageButton: UIButton = {
         let button = UIButton(type: .system)
-//        button.setImage(UIImage(named: "myPageButtonImage"), for: .normal)
+        button.setImage(UIImage(named: "myPageButtonImage"), for: .normal)
+        button.tintColor = .black
+        button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(myPageButtonTapped), for: .touchUpInside)
-        button.backgroundColor = .blue
+//        button.backgroundColor = .blue
         
         return button
     }()
