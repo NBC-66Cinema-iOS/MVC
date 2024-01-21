@@ -46,7 +46,7 @@ extension MovieDetailView {
             descriptionLabel.topAnchor.constraint(equalToSystemSpacingBelow: titleLabel.bottomAnchor, multiplier: 1),
             descriptionLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
-            reservationButton.bottomAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow: safeAreaLayoutGuide.bottomAnchor, multiplier: 0.1),
+            reservationButton.bottomAnchor.constraint(equalToSystemSpacingBelow: safeAreaLayoutGuide.bottomAnchor, multiplier: 0.1),
             reservationButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
     }
