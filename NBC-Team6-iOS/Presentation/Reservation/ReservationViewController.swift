@@ -8,7 +8,9 @@
 import UIKit
 
 final class ReservationViewController: UIViewController {
-    
+    // 마이페이지와 연동되는 부분
+    static var reservations: [Reservation] = []
+
     let backButton = UINavigationItem()
     let centerReservationText = UITextView()
     let myPageButton = UIButton()
@@ -36,6 +38,17 @@ final class ReservationViewController: UIViewController {
         navigationController?.pushViewController(ReservationViewController(), animated: true)
     }
     
+
+   
+    // 마이페이지와 연동되는 부분
+    
+    func addReservation() {
+        let reservation = Reservation(movieTitle: movieTitle.text ?? "", date: date.date, numberOfPeople: Int(stepperCount.text ?? "0") ?? 0, totalAmount: Int(totalAmount.text ?? "0") ?? 0)
+        ReservationViewController.reservations.append(reservation)
+    }
+    //----------
+    
+
     
     
     func configureUI() {
@@ -290,4 +303,9 @@ final class ReservationViewController: UIViewController {
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
     }
+
+//    @objc func reservationButtonTapped(_ sender: UIButton) {
+//    }
+    
+
 }
