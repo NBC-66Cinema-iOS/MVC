@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NetworkManager {
+final class NetworkManager {
     private var urlSession: URLSession
 
     init(urlSession: URLSession = .shared) {

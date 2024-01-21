@@ -18,9 +18,14 @@ class TMDBClient {
 }
 
 extension TMDBClient {
+    private func createURL(endpoint: String) -> URL? {
+        let urlString = "https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)"
+        return URL(string: urlString)
+    }
+    
     func fetchUpcomingMovies(completion: @escaping (Result<[MovieModel], Error>) -> Void) {
         // URLRequest 생성
-        guard let url = URL(string: "https://api.themoviedb.org/3/movie/upcoming?api_key=\(apiKey)") else {
+        guard let url = createURL(endpoint: "upcoming") else {
             print("Invalid URL")
             return
         }
@@ -35,13 +40,12 @@ extension TMDBClient {
             NetworkLogger.log(response: response, data: data, error: error)
             
             // 응답 처리
-            // ...
         }
         task.resume()
     }
     
     func fetchNowPlayingMovies(completion: @escaping (Result<[MovieModel], Error>) -> Void) {
-        guard let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)") else {
+        guard let url = createURL(endpoint: "now_playing") else {
             return
         }
         
@@ -51,7 +55,7 @@ extension TMDBClient {
     }
     
     func fetchPopularMovies(completion: @escaping (Result<[MovieModel], Error>) -> Void) {
-        guard let url = URL(string: "https://api.themoviedb.org/3/movie/popular?api_key=\(apiKey)") else {
+        guard let url = createURL(endpoint: "popular") else {
             return
         }
         
