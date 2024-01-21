@@ -102,13 +102,18 @@ extension MovieListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UITableViewHeaderFooterView(reuseIdentifier: "SectionHeader")
-        headerView.textLabel?.text = sectionTitles[section].title
+        let headerView = UIView()
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        label.text = sectionTitles[section].title
+        label.frame = CGRect(x: 20, y: 5, width: tableView.frame.width, height: 35)
+        headerView.addSubview(label)
+
         return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30.0
+        return getDeviceHeight() * 0.04
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -171,12 +176,11 @@ extension MovieListViewController {
                 guard let self = self else { return }
                 self.movies[category] = movies
                 DispatchQueue.main.async {
-                    // 해당 카테고리에 대한 섹션 인덱스를 찾음
                     if let sectionIndex = self.sectionTitles.firstIndex(where: { $0.title == category }) {
                         // 해당 섹션에 대한 IndexPath를 생성
                         let indexPath = IndexPath(row: 0, section: sectionIndex)
                         
-                        // 특정 IndexPath에 대한 셀을 가져와 데이터를 설정
+                        // IndexPath에 대한 셀을 가져와 데이터를 설정
                         if let cell = self.categoryTableView.cellForRow(at: indexPath) as? MovieListTableViewCell {
                             cell.movieList = movies
                         }

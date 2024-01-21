@@ -12,6 +12,8 @@ struct ComponentFactory {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .systemGray
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
         
         return imageView
     }

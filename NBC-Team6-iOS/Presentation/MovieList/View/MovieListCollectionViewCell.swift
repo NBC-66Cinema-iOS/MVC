@@ -50,7 +50,7 @@ extension MovieListCollectionViewCell {
             
             movieTitleLabel.leadingAnchor.constraint(equalTo: movieImageView.leadingAnchor),
             movieTitleLabel.trailingAnchor.constraint(equalTo: movieImageView.trailingAnchor),
-            movieTitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: movieImageView.bottomAnchor, multiplier: 0.5)
+            movieTitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: movieImageView.bottomAnchor, multiplier: 1)
         ])
     }
     

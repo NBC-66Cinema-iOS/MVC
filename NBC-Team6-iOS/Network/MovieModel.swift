@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct MovieModel: Codable {
+struct MovieModel: Decodable {
     let imagePath: String?
     let title: String
     let overview: String
@@ -28,13 +28,6 @@ struct MovieModel: Codable {
         self.imagePath = try container.decode(String.self, forKey: .imageURLString)
         self.title = try container.decode(String.self, forKey: .title)
         self.overview = try container.decode(String.self, forKey: .overview )
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(imagePath, forKey: .imageURLString)
-        try container.encode(title, forKey: .title)
-        try container.encode(overview, forKey: .overview)
     }
 }
 

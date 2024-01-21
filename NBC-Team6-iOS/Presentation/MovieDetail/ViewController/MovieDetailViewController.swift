@@ -31,14 +31,14 @@ final class MovieDetailViewController: BaseViewController, CustomNavigationBarDe
 
 extension MovieDetailViewController {
     private func setDelegate() {
-        rootView.navigationBar.delegate = self
+        rootView.delegate = self
     }
     
     private func fetchMovieDatas() {
         guard let movie = movie else { return }
         
-        rootView.movieImageView.load(from: movie.absoluteImagePath)
-        rootView.titleLabel.text = movie.title
-        rootView.descriptionLabel.text = movie.overview
+        rootView.updateMovieImage(from: movie.absoluteImagePath)
+        rootView.updateTitle(movie.title)
+        rootView.updateDescription(movie.overview)
     }
 }

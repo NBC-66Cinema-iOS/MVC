@@ -37,6 +37,7 @@
 		379778732B5D5A8E00FFC61C /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379778722B5D5A8E00FFC61C /* UIImageView+Extension.swift */; };
 		379778752B5D60DC00FFC61C /* ImageCashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379778742B5D60DC00FFC61C /* ImageCashManager.swift */; };
 		379778772B5DAF9400FFC61C /* NavigationBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379778762B5DAF9400FFC61C /* NavigationBarDelegate.swift */; };
+		3797787B2B5DC23600FFC61C /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3797787A2B5DC23600FFC61C /* UIViewController+Extension.swift */; };
 		37A3D6B22B5ACFFD0091E6E3 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A3D6B12B5ACFFD0091E6E3 /* CustomNavigationBar.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +74,7 @@
 		379778722B5D5A8E00FFC61C /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		379778742B5D60DC00FFC61C /* ImageCashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCashManager.swift; sourceTree = "<group>"; };
 		379778762B5DAF9400FFC61C /* NavigationBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarDelegate.swift; sourceTree = "<group>"; };
+		3797787A2B5DC23600FFC61C /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		37A3D6B12B5ACFFD0091E6E3 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -306,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				379778722B5D5A8E00FFC61C /* UIImageView+Extension.swift */,
+				3797787A2B5DC23600FFC61C /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				37A3D6B22B5ACFFD0091E6E3 /* CustomNavigationBar.swift in Sources */,
 				2CEE2FC42B5A1F4500607D17 /* MovieListTableViewCell.swift in Sources */,
 				2CEE2F6F2B57D50200607D17 /* ReservationViewController.swift in Sources */,
+				3797787B2B5DC23600FFC61C /* UIViewController+Extension.swift in Sources */,
 				378E46332B56532000D2A473 /* TabBarController.swift in Sources */,
 				379778672B5D045D00FFC61C /* BaseViewController.swift in Sources */,
 				379778772B5DAF9400FFC61C /* NavigationBarDelegate.swift in Sources */,

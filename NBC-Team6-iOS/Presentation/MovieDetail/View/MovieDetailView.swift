@@ -9,11 +9,17 @@ import UIKit
 
 final class MovieDetailView: UIView {
     
-    let navigationBar = CustomNavigationBar(viewType: .standard, title: nil)
+    weak var delegate: CustomNavigationBarDelegate? {
+        didSet {
+            navigationBar.delegate = delegate
+        }
+    }
     
-    let movieImageView = ComponentFactory.makeMoviePosterImageView()
-    let titleLabel = ComponentFactory.makeBoldLabel()
-    let descriptionLabel = ComponentFactory.makeDescriptionLabel()
+    private let navigationBar = CustomNavigationBar(viewType: .standard, title: nil)
+    
+    private let movieImageView = ComponentFactory.makeMoviePosterImageView()
+    private let titleLabel = ComponentFactory.makeBoldLabel()
+    private let descriptionLabel = ComponentFactory.makeDescriptionLabel()
     
     private lazy var reservationButton = CustomButton(fontColor: .white, backColor: .black, title: "예약하기")
 
@@ -58,5 +64,17 @@ extension MovieDetailView {
             reservationButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.8),
             reservationButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05)
         ])
+    }
+    
+    func updateMovieImage(from path: String) {
+        movieImageView.load(from: path)
+    }
+
+    func updateTitle(_ title: String) {
+        titleLabel.text = title
+    }
+
+    func updateDescription(_ description: String) {
+        descriptionLabel.text = description
     }
 }
