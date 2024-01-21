@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct MovieListModel {
+struct MovieListLocalModel {
     let image: UIImage
     let title: String
 }

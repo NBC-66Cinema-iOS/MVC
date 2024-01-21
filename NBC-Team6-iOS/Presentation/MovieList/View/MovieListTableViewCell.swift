@@ -9,13 +9,14 @@ import UIKit
 
 // MARK: - MovieListTableViewCell
 
-class MovieListTableViewCell: UITableViewCell {
+final class MovieListTableViewCell: UITableViewCell {
     
     static let identifier = "MovieListTableViewCell"
     
     // MARK: - Properties
     
-    let movieList: [MovieListModel] = []
+//    let movieList: [MovieListModel] = []
+    let movieList: [MovieModel] = []
     
     // MARK: - UI Properties
     
@@ -78,8 +79,8 @@ extension MovieListTableViewCell: UICollectionViewDelegateFlowLayout {
 
 extension MovieListTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return movieList.count
-        return 10
+        return movieList.count
+//        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
