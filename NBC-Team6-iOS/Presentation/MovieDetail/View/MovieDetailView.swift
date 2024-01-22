@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol MovieDetailViewDelegate: AnyObject {
+    func reservationButtonTapped()
+}
+
 final class MovieDetailView: UIView {
     
     weak var delegate: CustomNavigationBarDelegate? {
@@ -14,6 +18,8 @@ final class MovieDetailView: UIView {
             navigationBar.delegate = delegate
         }
     }
+    
+    weak var reservationDelegate: MovieDetailViewDelegate?
     
     private let navigationBar = CustomNavigationBar(viewType: .standard, title: nil)
     
@@ -27,6 +33,7 @@ final class MovieDetailView: UIView {
         super.init(frame: frame)
         
         setLayout()
+        addButtonTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -76,5 +83,13 @@ extension MovieDetailView {
 
     func updateDescription(_ description: String) {
         descriptionLabel.text = description
+    }
+    
+    private func addButtonTarget() {
+        reservationButton.addTarget(self, action: #selector(handleReservationButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func handleReservationButtonTapped() {
+        reservationDelegate?.reservationButtonTapped()
     }
 }

@@ -27,11 +27,20 @@ final class MovieDetailViewController: BaseViewController, CustomNavigationBarDe
     }
 }
 
+extension MovieDetailViewController: MovieDetailViewDelegate {
+    func reservationButtonTapped() {
+        let reservationVC = ReservationViewController()
+        
+        navigationController?.pushViewController(reservationVC, animated: true)
+    }
+}
+
 // MARK: - Network
 
 extension MovieDetailViewController {
     private func setDelegate() {
         rootView.delegate = self
+        rootView.reservationDelegate = self
     }
     
     private func fetchMovieDatas() {
