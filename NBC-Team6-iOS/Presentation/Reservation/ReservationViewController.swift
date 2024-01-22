@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ReservationViewController: BaseViewController {
+final class ReservationViewController: BaseViewController, CustomNavigationBarDelegate {
     // 마이페이지와 연동되는 부분
     static var reservations: [Reservation] = []
 
@@ -40,6 +40,8 @@ final class ReservationViewController: BaseViewController {
     }
    
     func configureNavigationBar() {
+        navigationBar.delegate = self
+        
         view.addSubview(navigationBar)
         NSLayoutConstraint.activate([
             navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
