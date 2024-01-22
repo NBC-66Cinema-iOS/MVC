@@ -12,13 +12,23 @@ enum NavigatonBarType {
     case withMypageButton
 }
 
+// MARK: - CustomNavigationBar
+
 final class CustomNavigationBar: UIView {
+    
+    // MARK: - Properties
+    
+    weak var delegate: CustomNavigationBarDelegate?
+    
+    private var viewType: NavigatonBarType?
+    
+    // MARK: - UI Properties
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
         
         return stackView
     }()
@@ -29,7 +39,6 @@ final class CustomNavigationBar: UIView {
         button.tintColor = .black
         button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-//        button.backgroundColor = .red
         
         return button
     }()
@@ -37,11 +46,8 @@ final class CustomNavigationBar: UIView {
     private let centerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "centerImage")
-        imageView.contentMode = .scaleAspectFit
-        imageView.contentMode = .center
-        imageView.backgroundColor = .brown
-        imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 50) // x, y 좌표와 너비, 높이 설정
-
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         
         return imageView
     }()
@@ -61,26 +67,34 @@ final class CustomNavigationBar: UIView {
         button.tintColor = .black
         button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(myPageButtonTapped), for: .touchUpInside)
-//        button.backgroundColor = .blue
         
         return button
     }()
     
-    init(title: String?) {
+    // MARK: - Life Cycle
+    
+    init(viewType: NavigatonBarType, title: String?) {
         super.init(frame: CGRect.zero)
+        
+        self.viewType = viewType
         updateTitleView(with: title)
         setNavigationBarLayout()
-    }
-    
-    // TODO: 트러블 슈팅
-    override func didMoveToSuperview() {
-        setNavigationBarConstraint()
+        updateMypageButton()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
+        stackView.spacing = self.frame.width * 0.2
+    }
 }
+
+// MARK: - Extensions
 
 extension CustomNavigationBar {
     private func updateTitleView(with title: String?) {
@@ -94,39 +108,39 @@ extension CustomNavigationBar {
         }
     }
     
-    private func setNavigationBarConstraint() {
-        NSLayoutConstraint.activate([
-            topAnchor.constraint(equalTo: superview?.safeAreaLayoutGuide.topAnchor ?? NSLayoutYAxisAnchor()),
-            leadingAnchor.constraint(equalTo: superview?.safeAreaLayoutGuide.leadingAnchor ?? NSLayoutXAxisAnchor()),
-            trailingAnchor.constraint(equalTo: superview?.safeAreaLayoutGuide.trailingAnchor ?? NSLayoutXAxisAnchor()),
-            heightAnchor.constraint(equalTo: superview?.heightAnchor ?? NSLayoutDimension(), multiplier: 0.1)
-        ])
-    }
-    
     private func setNavigationBarLayout() {
         self.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(stackView)
 
-        [backButton, titleLabel.isHidden ? centerImageView : titleLabel, myPageButton].forEach { stackView.addArrangedSubview($0) }
+        [backButton, centerImageView, titleLabel, myPageButton].forEach { stackView.addArrangedSubview($0) }
         
         NSLayoutConstraint.activate([
-            
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             stackView.topAnchor.constraint(equalTo: self.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            
+            backButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.2),
+            myPageButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.2),
+            centerImageView.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.2),
         ])
+    }
+    
+    private func updateMypageButton() {
+        if viewType == .withMypageButton {
+            myPageButton.tintColor = .clear
+        }
     }
     
     // MARK: - Action Helpers
     
     // backButton과 myPageButton의 액션 메서드
     @objc private func backButtonTapped() {
-        // backButton을 눌렀을 때 수행할 동작
+        delegate?.didTapBackButton()
     }
     
     @objc private func myPageButtonTapped() {
-        // myPageButton을 눌렀을 때 수행할 동작
+        delegate?.didTapMypageButton()
     }
 }

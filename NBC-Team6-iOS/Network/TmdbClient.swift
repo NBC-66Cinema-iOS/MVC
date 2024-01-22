@@ -29,6 +29,11 @@ extension TMDBClient {
             print("Invalid URL")
             return
         }
+        
+        networkManager.request(url: url) { result in
+            self.handleMovieResponse(result: result, completion: completion)
+        }
+        
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "GET"
         
@@ -77,5 +82,16 @@ extension TMDBClient {
         case .failure(let error):
             completion(.failure(error))
         }
+    }
+    
+    func fetchMovieImageURL(from imagePath: String) -> URL? {
+        // 이미지 기본 URL (예: https://image.tmdb.org/t/p/w500/)
+        let baseURL = "https://image.tmdb.org/t/p/w500/"
+
+        // 상대 경로를 절대 경로로 변환
+        let absoluteURLString = baseURL + imagePath
+
+        // URL 형식으로 반환
+        return URL(string: absoluteURLString)
     }
 }

@@ -7,7 +7,9 @@
 
 import UIKit
 
-final class MovieDetailViewController: BaseViewController {
+final class MovieDetailViewController: BaseViewController, CustomNavigationBarDelegate {
+    
+    var movie: MovieModel?
     
     private let rootView = MovieDetailView()
     
@@ -17,18 +19,35 @@ final class MovieDetailViewController: BaseViewController {
         view = rootView
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        fetchMovieDatas()
+        setDelegate()
     }
 }
 
-extension MovieDetailViewController {
+extension MovieDetailViewController: MovieDetailViewDelegate {
+    func reservationButtonTapped() {
+        let reservationVC = ReservationViewController()
+        
+        navigationController?.pushViewController(reservationVC, animated: true)
+    }
+}
 
+// MARK: - Network
+
+extension MovieDetailViewController {
+    private func setDelegate() {
+        rootView.delegate = self
+        rootView.reservationDelegate = self
+    }
+    
+    private func fetchMovieDatas() {
+        guard let movie = movie else { return }
+        
+        rootView.updateMovieImage(from: movie.absoluteImagePath)
+        rootView.updateTitle(movie.title)
+        rootView.updateDescription(movie.overview)
+    }
 }

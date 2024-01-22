@@ -12,6 +12,8 @@ struct ComponentFactory {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .systemGray
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
         
         return imageView
     }
@@ -19,7 +21,8 @@ struct ComponentFactory {
     static func makeMovieTitleLabel() -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "블라블라"
+        label.lineBreakMode = .byTruncatingTail
+        label.text = "makeMovieTitleLabel"
         
         return label
     }
@@ -27,8 +30,9 @@ struct ComponentFactory {
     static func makeBoldLabel() -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Bold"
         label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.lineBreakMode = .byTruncatingTail
+        label.text = "makeBoldLabel"
         
         return label
     }
@@ -36,15 +40,22 @@ struct ComponentFactory {
     static func makeMediumLabel() -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Medium"
         label.font = .systemFont(ofSize: 18, weight: .medium)
+        label.lineBreakMode = .byTruncatingTail
+        label.text = "makeMediumLabel"
         
         return label
     }
     
-    static func makeScrollView() -> UIScrollView {
-        let scrollView = UIScrollView()
+    static func makeDescriptionLabel() -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 18, weight: .medium)
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        label.text = "makeDescriptionLabel"
         
-        return scrollView
+        return label
     }
+    
 }

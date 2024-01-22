@@ -7,19 +7,27 @@
 
 import UIKit
 
-struct MovieModel: Codable {
-    let image: URL?
+struct MovieModel: Decodable {
+    let imagePath: String?
     let title: String
+    let overview: String
+    
+    var absoluteImagePath: String {
+        let baseURL = "https://image.tmdb.org/t/p/w500"
+        return baseURL + (imagePath ?? "")
+    }
 
     enum CodingKeys: String, CodingKey {
-        case image = "poster_path"
+        case imageURLString = "poster_path"
         case title
+        case overview
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let imagePath = try container.decode(String.self, forKey: .image)
-        self.image = URL(string: "https://image.tmdb.org/t/p/w500" + imagePath)
+        self.imagePath = try container.decode(String.self, forKey: .imageURLString)
         self.title = try container.decode(String.self, forKey: .title)
+        self.overview = try container.decode(String.self, forKey: .overview )
     }
 }
+

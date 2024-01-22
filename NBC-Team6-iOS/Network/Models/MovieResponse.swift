@@ -7,13 +7,6 @@
 
 import Foundation
 
-struct MovieResponse: Codable {
-//    let dates: Dates
-//    let page: Int
+struct MovieResponse: Decodable {
     let results: [MovieModel]
-}
-
-struct Dates: Codable {
-    let maximum: String
-    let minimum: String
 }
