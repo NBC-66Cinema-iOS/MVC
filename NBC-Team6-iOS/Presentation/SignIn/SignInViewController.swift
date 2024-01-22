@@ -101,15 +101,15 @@ class SignInViewController: UIViewController {
     // 아이콘
     func configureIconImageView() {
         view.addSubview(iconImageView)
-        iconImageView.image = UIImage(systemName: "film.stack")
-        iconImageView.contentMode = .center
-        iconImageView.tintColor = .red
+        iconImageView.image = UIImage(named: "centerImage")
+        iconImageView.contentMode = .scaleAspectFit
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             iconImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 130),
             iconImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
-            iconImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30)
+            iconImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
+            iconImageView.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -136,7 +136,7 @@ class SignInViewController: UIViewController {
         idTextField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            idTextField.topAnchor.constraint(equalTo: introLabel.bottomAnchor, constant: 60),
+            idTextField.topAnchor.constraint(equalTo: introLabel.bottomAnchor, constant: 30),
             idTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
             idTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30)
         ])

@@ -15,15 +15,15 @@ struct Reservation {
     let totalAmount: Int
 }
 
-extension UIImage {
-    func resizedImage(newSize: CGSize) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
-        self.draw(in: CGRect(origin: .zero, size: newSize))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage
-    }
-}
+//extension UIImage {
+//    func resizedImage(newSize: CGSize) -> UIImage? {
+//        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+//        self.draw(in: CGRect(origin: .zero, size: newSize))
+//        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        return newImage
+//    }
+//}
 
 class MypageViewController: UIViewController, CustomNavigationBarDelegate {
     // MARK: - Property
@@ -70,10 +70,10 @@ class MypageViewController: UIViewController, CustomNavigationBarDelegate {
 
     // MARK: - @objc
     // 네비게이션바에서 뒤로가기 버튼 눌렀을때
-    @objc func backButtonTapped() {
-        let reservationVC = ReservationViewController()
-        self.navigationController?.popViewController(animated: true)
-    }
+//    @objc func backButtonTapped() {
+//        let reservationVC = ReservationViewController()
+//        self.navigationController?.popViewController(animated: true)
+//    }
     
     // 로그아웃 버튼 눌렀을때 로그인 화면으로 가기 + 아이디랑 비밀번호 채워진것 없어지게 하기
     @objc func mypageLogoutButtonTapped() {
@@ -89,11 +89,15 @@ class MypageViewController: UIViewController, CustomNavigationBarDelegate {
     func configureReservations() {
         view.addSubview(mypageReservationsText)
         mypageReservationsText.translatesAutoresizingMaskIntoConstraints = false
+        
+        //mypageReservationsText.text = "Lift 1/22 20:00 3명"
+        mypageReservationsText.isEditable = false
+        
         NSLayoutConstraint.activate([
-            mypageReservationsText.topAnchor.constraint(equalTo: mypageReservationLabel.bottomAnchor, constant: 8),
+            mypageReservationsText.topAnchor.constraint(equalTo: mypageReservationLabel.bottomAnchor, constant: 10),
             mypageReservationsText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
             mypageReservationsText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            navigationBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1)
+            mypageReservationsText.heightAnchor.constraint(equalToConstant: 100) // Adjust this value as needed
         ])
         
         // textview 설정 - 텍스트, 폰트, 색상
@@ -101,7 +105,7 @@ class MypageViewController: UIViewController, CustomNavigationBarDelegate {
         mypageReservationsText.textColor = .gray
         
         if ReservationViewController.reservations.isEmpty {
-               mypageReservationsText.text = "아직 예매한 내역이 없습니다."
+               mypageReservationsText.text = "Lift 1/22 20:00 3명"
            } else {
                var reservationsText = ""
                for reservation in ReservationViewController.reservations {
