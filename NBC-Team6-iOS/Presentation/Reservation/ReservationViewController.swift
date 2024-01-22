@@ -27,6 +27,8 @@ final class ReservationViewController: BaseViewController, CustomNavigationBarDe
     let totalAmount = UILabel()
     
     var reservationButton = CustomButton(fontColor: .white, backColor: .black, title: "예약하기")
+  
+    var movie: MovieModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,7 +123,7 @@ final class ReservationViewController: BaseViewController, CustomNavigationBarDe
     }
     
     func configureNumberOfPerson() {
-        numberOfPersonLabel.text = "인원"
+        numberOfPersonLabel.text = "3"
         numberOfPersonLabel.textAlignment = .left
         numberOfPersonLabel.font = UIFont.boldSystemFont(ofSize: 15)
         numberOfPersonLabel.textColor = .black
@@ -153,7 +155,7 @@ final class ReservationViewController: BaseViewController, CustomNavigationBarDe
     }
     
     func configureMovieTitle() {
-        movieTitle.text = "영화이름"
+        movieTitle.text = movie?.title ?? "영화이름"
         movieTitle.textAlignment = .right
         movieTitle.font = UIFont.boldSystemFont(ofSize: 20)
         movieTitle.textColor = .black
@@ -173,8 +175,8 @@ final class ReservationViewController: BaseViewController, CustomNavigationBarDe
         date.datePickerMode = .dateAndTime
         
         let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "MM-dd HH:mm"
-        if let initialDate = dateformatter.date(from: "01-25 20:00") {
+        dateformatter.dateFormat = "MM-dd-yy HH:mm"
+        if let initialDate = dateformatter.date(from: "01-22 2024 20:00") {
             date.date = initialDate
             date.preferredDatePickerStyle = .compact
             date.backgroundColor = .systemBackground

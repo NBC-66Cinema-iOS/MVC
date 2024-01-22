@@ -30,7 +30,9 @@ final class MovieDetailViewController: BaseViewController, CustomNavigationBarDe
 extension MovieDetailViewController: MovieDetailViewDelegate {
     func reservationButtonTapped() {
         let reservationVC = ReservationViewController()
-        
+        //지웅추가
+        reservationVC.movie = movie
+        //
         navigationController?.pushViewController(reservationVC, animated: true)
     }
 }
